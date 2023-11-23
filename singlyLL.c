@@ -24,6 +24,7 @@ void insertfront(int data)
 
 void  insertspecific(int data,int key)
 {
+ int flag=0;
  temp=(struct node*)malloc(sizeof(struct node));
  temp->data=data;
  if(head==NULL)
@@ -38,6 +39,7 @@ void  insertspecific(int data,int key)
   {
    if(ptr->data==key)
    {
+     flag=1;
      temp->next=ptr->next;
      ptr->next=temp;
      break;
@@ -45,6 +47,8 @@ void  insertspecific(int data,int key)
    else
    ptr=ptr->next;
   }
+  if(flag==0)
+    printf("Key is not present");
  }
 }
 void deletebeg()
@@ -70,30 +74,35 @@ void deleteend()
    {
     temp=ptr;
     ptr=ptr->next;
-  }
+   }
   temp->next=NULL;
+  printf("deleted element:%d",ptr->data);
   free(ptr);
-}
+  }
 }
 void search(int item)
 {
+  int flag=0;
   if(head==NULL)
     printf("linked list is empty");
   temp=head;
   while(temp!=NULL)
   {
-   if(temp->data==item)
+   if(temp->data==item){
      printf("Element is present in linkedlist");
-   else 
-     printf("Element is not present in linkedlist");
+     flag=1;
+     break;
+    }
    temp=temp->next;
   }
+  if(flag==0)
+     printf("Element is not present in linked list");
 }
 void main()
 {
  int data,ch,key;
  head=NULL;
- printf("1. insertfront\n2.insertion after specific\n3.Deletion from begining\n4.Deletion from end\n5.Search\n6.Traversal\n7.Exit");
+ printf("Linked List Operation\n1. insertfront\n2.insertion after specific\n3.Deletion from begining\n4.Deletion from end\n5.Search\n6.Traversal\n7.Exit");
  do
  {
   printf("\nEnter the choice:");
@@ -120,16 +129,21 @@ void main()
     printf("Enter the data to be searched");
     scanf("%d",&data);
     search(data) ;
-   } 
+   }
   if(ch==6)
   {
+      if(head==NULL)
+          printf("linked list is empty");
+       else{
         printf("linked list:");
          temp=head;
-      while(temp!=NULL)
-     {
-     
-      printf("%d-->",temp->data);
-      temp=temp->next;
+while(temp!=NULL)
+{
+
+printf("%d->",temp->data);
+temp=temp->next;
+}
+printf("NULL");
      }
   }
   if(ch==7)
